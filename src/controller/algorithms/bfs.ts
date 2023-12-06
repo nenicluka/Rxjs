@@ -12,6 +12,7 @@ export const bfs = (grid: GridCell[][]): void => {
     let shortestPath$: BehaviorSubject<number[][]> = new BehaviorSubject<number[][]>([])
     const gridPath: number[][][][] = []
 
+    //trazim gde je mis da bi odatle zapoceo trazenje
     for (let i = 0; i < grid.length; i++) {
         gridPath[i] = []
         for (let j = 0; j < grid[i].length; j++) {

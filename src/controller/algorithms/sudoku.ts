@@ -54,27 +54,27 @@ export function solveSudoku(board: number[][]): Observable<number[][]> {
 
 export function isValidSudoku(board: number[][]): boolean {
     for (let i = 0; i < 9; i++) {
-        const rowSet: Set<number> = new Set()
-        const columnSet: Set<number> = new Set()
-        const square3x3Set: Set<number> = new Set()
+        const rowSet: Set<number> = new Set(Array(9).fill(0).map((e, i) => i + 1))
+        const columnSet: Set<number> = new Set(Array(9).fill(0).map((e, i) => i + 1))
+        const square3x3Set: Set<number> = new Set(Array(9).fill(0).map((e, i) => i + 1))
 
         for (let j = 0; j < 9; j++) {
             if (board[i][j] !== -1) {
-                if (rowSet.has(board[i][j]))
+                if (!rowSet.has(board[i][j]))
                     return false
-                rowSet.add(board[i][j])
+                rowSet.delete(board[i][j])
             }
             if (board[j][i] !== -1) {
-                if (columnSet.has(board[j][i]))
+                if (!columnSet.has(board[j][i]))
                     return false
-                columnSet.add(board[j][i])
+                columnSet.delete(board[j][i])
             }
             const x: number = 3 * ~~(i / 3) + ~~(j / 3)
             const y: number = 3 * ~~(i % 3) + j % 3
             const element: number = board[x][y]
             if (element !== -1) {
-                if (square3x3Set.has(element)) return false
-                square3x3Set.add(element)
+                if (!square3x3Set.has(element)) return false
+                square3x3Set.delete(element)
             }
         }
     }
